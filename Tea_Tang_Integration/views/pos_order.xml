@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_tea_tang_new_1" model="ir.actions.act_window">
+        <field name="name">ORDER DETAILS</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tea.order.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="tea_tang_new_tes_form" model="ir.ui.view">
+        <field name="name">tea tang</field>
+        <field name="model">tea.order.line</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <button string="Get Pos" type="object" class="btn-primary" name="button_check" />
+                        </group>
+                    </group>
+                    <!-- <notebook>
+                        <page string="Pos order" name="pos">
+                            <field name="pos_connect">
+                                <tree create="0" editable="0" search="1">
+                                    <field name="custom_name" optional="show"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook> -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id = "pos_order_1_tree" model = "ir.ui.view">
+        <field name = "name">ORDER DETAILS</field>
+        <field name = "model">tea.order.line</field>
+        <field name = "arch" type = "xml">
+            <tree>
+                <header>
+                    <button string="Post" type="object" class="oe_highlight" name="button_check" />
+                </header>
+                <field name="session_id" optional="show"/>
+                <field name="custom_name" optional="show"/>
+                <field name="full_product_name" optional="show"/>
+                <field name="UnitPrice" optional="show"/>
+                <field name="ItemAmt" optional="show"/>
+                <field name="NoOfItems" optional="show"/>
+                <field name="session_count" optional="show"/>
+                <field name="AmtTax" optional="show"/>
+                <field name="amount_total" optional="show"/>
+                <field name="TotalSalesAmtB4Tax" optional="show"/>
+                <field name="TotalSalesAmtAfterTax" optional="show"/>
+                <!-- <field name="SalesTaxRate" optional="show"/> -->
+                <field name="ReceiptDate" optional="show"/>
+                <field name="ReceiptTime" optional="show"/>
+                <field name="ReceiptNo" optional="show"/>
+                <field name="company" optional="show"/>
+                <field name="session_count" optional="show"/>
+                <field name="SalesType" optional="show"/>
+                <field name="status" optional="show"/>
+                <!-- <field name="PaymentMethods" optional="show"/> -->
+                <!-- <field name="amount_total" optional="show"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="tea_tang" name="TEA TANG OGF" web_icon="Tea_Tang_Integration,static/description/icon.png" sequence="10" />
+    <menuitem id="pos_order" name="ORDER DETAILS" parent ="tea_tang" action = "action_tea_tang_new_1" sequence="10" />
+
+</odoo>

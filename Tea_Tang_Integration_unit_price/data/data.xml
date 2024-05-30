@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Scheduled action to fetch data from pos.order.line every minute -->
+
+
+    <!-- <record id="ir_cron_fetch_data_from_sales" model="ir.cron">
+        <field name="name">Fetch Data from sales Order</field>
+        <field name="model_id" ref="model_purchase_order"/>
+        <field name="state">code</field>
+        <field name="code">model.unit_confirm()</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+    </record> -->
+
+    <record id="ir_cron_fetch_data_from_shahhidh" model="ir.cron">
+        <field name="name">Test shahidh</field>
+        <field name="model_id" ref="model_sale_order_line"/>
+        <field name="state">code</field>
+        <field name="code">model.test_lbx()</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+    <record id="ir_cron_fetch_data_from_sales_order_after_fet" model="ir.cron">
+        <field name="name">lbx-test-24-1</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">model.action_confirm()</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+
+</odoo>

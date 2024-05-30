@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('paymentmethods-container')]" position="after">
+            <center>
+                <input type="text" id="pos_customer_code"  style="width:300px; height:30px;resize: none;" placeholder="Order Number"></input>
+            </center>
+        </xpath>
+    </t>
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('before-footer')]" position="after">
+            <t t-if="receipt.pos_customer_code and receipt.pos_customer_code !=''">
+                <br/>
+                <div>
+                    Order Number:
+                    <span t-esc='receipt.pos_customer_code' class="pos-receipt-right-align"/>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

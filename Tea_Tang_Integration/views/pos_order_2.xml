@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_tea_tang_new_2" model="ir.actions.act_window">
+        <field name="name">PAYMENT DETAILS</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tea.order.line.2</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- <record id="tea_tang_new_form" model="ir.ui.view">
+        <field name="name">tea tang</field>
+        <field name="model">tea.order.new</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <group>
+                            <button string="Get Pos" type="object" class="btn-primary" name="get_data" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Pos order" name="pos">
+                            <field name="pos_connect">
+                                <tree create="0" editable="0" search="1">
+                                    <field name="session_id" optional="show"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record> -->
+
+
+
+    <record id = "pos_order_2_tree" model = "ir.ui.view">
+        <field name = "name">PAYMENT DETAILS</field>
+        <field name = "model">tea.order.line.2</field>
+        <field name = "arch" type = "xml">
+
+            <tree>
+                <field name="session_id" optional="show"/>
+                <field name="ReceiptNo" optional="show"/>
+                <field name="ReceiptDate" optional="show"/>
+                <field name="cardtype" optional="show"/>
+                <field name="paymentDate" optional="show"/>
+                <field name="PaymentAmt" optional="show"/>
+                <field name="PaymentMethods" optional="show"/>
+                <field name="SalesType" optional="show"/>
+                <field name="company" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- <menuitem id="tea_tang_2" name="Tea_tang" sequence="10" /> -->
+    <menuitem id="pos_order_2" name="PAYMENT DETAILS" parent ="tea_tang" action = "action_tea_tang_new_2" sequence="20" />
+
+</odoo>
