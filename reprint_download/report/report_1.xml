@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pos_receipt_re_print">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="order">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div >
+                        <div>
+                            <span t-esc="order.name"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

@@ -9,6 +9,7 @@ import { App, onMounted, useState } from "@odoo/owl";
 import { renderToString } from "@web/core/utils/render";
 import { useService } from "@web/core/utils/hooks";
 import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
+import { TicketScreen } from "@point_of_sale/app/screens/ticket_screen/ticket_screen";
 import { usePos } from "@point_of_sale/app/store/pos_hook";
 
 
@@ -27,8 +28,6 @@ patch(Order.prototype, {
             this.name = this.name.replace("Order ", "");
         }
 
-        // var bi_seq = this.sequence_code
-        // console.log("Bi SEQ:", bi_seq)
 
     },
     set_seq_code(seq_code) {
@@ -43,14 +42,6 @@ patch(Order.prototype, {
         dict.company = this.pos.company;
         dict.rOrder = this;
         dict.sequence_code = this.sequence_code;
-
-        // Error handling for order.pos_reference
-        if (this.pos_reference) {
-            dict.uid = re.search('([0-9-]){14}', this.pos_reference).group(0);
-        } else {
-            // Handle the case where order.pos_reference is None or doesn't match the expected format
-            dict.uid = "DEFAULT_UID"; // Set a default UID or handle it based on your requirements
-        }
 
         return dict;
     }
@@ -86,28 +77,17 @@ patch(OrderReceipt.prototype, {
                 var receipt_design_id = env.services.pos.config.receipt_design_id[0];
                 var receipt_design = env.services.pos.db.receipt_by_id[receipt_design_id].receipt_design;
                 var order = this.props.data.rOrder;
-                // var json = export_as_JSON()
-                // var session_data = this.pos.pos_order;
-                // console.log("this.pos:", this.pos)
-                // console.log("var order:", order)
-                // console.log("var order:", order)
 
-                var pos_order = this.pos
-                // console.log("this.pos:", this.pos)
 
-                var partner = order.partner
-                // console.log("partner:", partner)
+                var pos_order = this.pos.pos_order
 
-                // var partner_details = order.partner
-                // console.log("partner:", partner_details)
 
-                // var partner_vat = order.partner.vat
-                // console.log("partner_vat:", partner_vat)
+                console.log("this pos data", this.pos)
 
-                // var pos_order_name = this.pos.pos_order.pos_reference
-                // console.log("last order ref:", pos_order_name)
 
-                const cardNumber = order.card_number;
+
+
+
 
                 // Initialize variables to store order lines data
                 var orderLinesData = [];
@@ -127,10 +107,21 @@ patch(OrderReceipt.prototype, {
                         discount: orderline.discount,
                         customer_note: orderline.customer_note
                     });
-                    // console.log("Order Details:", orderLinesData)
-                    // console.log("Pos Seq:", order.name)
+
 
                 });
+
+                const receiptDate = order.date_order;
+                const dateObject = new Date(receiptDate);
+                const orderDateFormatted = dateObject.toLocaleDateString();
+                const orderTimeFormatted = dateObject.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+
+                const cashier_name = order.cashier.name;
+                console.log("Cashier Name", cashier_name)
 
 
                 var data = {
@@ -138,14 +129,13 @@ patch(OrderReceipt.prototype, {
                     pos: order.pos,
                     order: order,
                     receipt: order.export_for_printing(),
-                    orderlines: orderLinesData, // Pass the order lines data array
+                    orderlines: orderLinesData,
                     paymentlines: order.get_paymentlines(),
-                    totalItems: orderLinesData.length, // Pass the total items count
-                    totalQuantity: totalQuantity, // Pass the total quantity
+                    totalItems: orderLinesData.length,
+                    totalQuantity: totalQuantity,
                     pos_order: pos_order,
-                    cardNumber: cardNumber,
-                    // partner: partner.name,
-                    // partner_vat: partner.vat,
+                    receipt_date: orderDateFormatted,
+                    receipt_time: orderTimeFormatted
                 };
 
                 // console.log("data:", data)
@@ -209,21 +199,10 @@ patch(PaymentScreen.prototype, {
 
     async _finalizeValidation() {
         var self = this;
-        // if (self.env.services.pos.config.sale_receipt && self.env.services.pos.config.sale_receipt_sequence_ids) {
-        //     var order = this.currentOrder;
-        //     console.log("Hello", order)
-
-        // }
-
         var order = this.currentOrder;
-        // console.log("Hello", order)
-
         var uid = order.uid;
-        // console.log("Hello Uid", uid)
-
-        var newseq = ("SHAHIDH") + uid;
+        var newseq = ("T") + uid;
         // console.log("Hello Uid", newseq)
-
         try {
             const result = await this.orm.call(
                 'pos.order',
@@ -238,34 +217,27 @@ patch(PaymentScreen.prototype, {
             order.name = result;
             // console.log("Order name updated:", order.name);
         } catch (error) {
-            console.error("Error creating POS receipt sequence:", error);
+            // console.error("Error creating POS receipt sequence:", error);
         }
-
-
-        // ).then(function (seq_code) {
-        //     order.set_seq_code(seq_code)
-        //     order.uid = seq_code;
-        //     order.name = _t("Order %s", order.uid);
-        // })
-
-        // order.uid = order.name
-        // console.log("Hello Uid", order.uid)
-
-
-
-
-        // await this.orm.call(
-        //     'pos.order',
-        //     'create_pos_receipt_sequence',
-        //     [0, this.currentOrder.pos_session_id],
-
-        // ).then(function (seq_code) {
-        //     order.set_seq_code(seq_code)
-        //     order.uid = seq_code;
-        //     order.name = _t("Order %s", order.uid);
-        // })
 
         super._finalizeValidation()
 
     },
 });
+
+// patch(TicketScreen.prototype, {
+//     setup() {
+//         super.setup();
+//         this.pos = usePos();
+
+//         // Log the cashier's name for the current order when the TicketScreen is set up
+//         const currentOrder = this.pos.get_order();
+//         console.log(this.getCashier(currentOrder));
+//     },
+//     getCashier(order) {
+//         const new_cashier = order.user_id
+//         // Ensure that the order has a valid cashier field
+//         // return order && order.cashier ? order.cashier.name : "";
+//         return new_cashier
+//     }
+// });

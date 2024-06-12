@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <record id="pos_receipt_re_print" model="ir.actions.report">
+        <field name="name">Receipt Details print</field>
+        <field name="model">pos.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">reprint_download.pos_receipt_re_print</field>
+        <field name="report_file">reprint_download.pos_receipt_re_print</field>
+        <field name="binding_model_id" ref="model_pos_order"/>
+        <field name="binding_type">report</field>
+    </record> -->
+    <!-- <record id="action_pos_receipt_re_print" model="ir.actions.report">
+        <field name="name">Receipt Details print</field>
+        <field name="model">pos.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">reprint_download.pos_receipt_re_print</field>
+        <field name="report_file">reprint_download.pos_receipt_re_print</field>
+        <field name="print_report_name">'Product Report - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_pos_order"/>
+        <field name="binding_type">report</field>
+    </record> -->
+    <!-- <record id="action_pos_receipt_re_print" model="ir.actions.report">
+        <field name="name">Reprint Receipt</field>
+        <field name="model">pos.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">reprint_download.pos_receipt_re_print</field>
+        <field name="report_file">reprint_download.pos_receipt_re_print</field>
+        <field name="print_report_name">'Pos Report - %s' % (object.pos_reference)</field>
+        <field name="binding_model_id" ref="point_of_sale.model_pos_order"/>
+        <field name="binding_type">report</field>
+    </record> -->
+    <record id="action_pos_receipt_re_print" model="ir.actions.report">
+        <field name="name">Account Name Report</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">reprint_download.pos_receipt_re_print</field>
+        <field name="report_file">reprint_download.pos_receipt_re_print</field>
+        <field name="print_report_name">'Pos Report'</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

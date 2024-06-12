@@ -6,7 +6,12 @@
     'depends':[
         'point_of_sale',
         'sale',
-        'purchase'
+        'purchase',
+        'stock',
+        'stock_account',
+        'product',
+        'purchase',
+        'stock_account'
     ],
     'data': [
         'views/purchase_order.xml',

@@ -4,6 +4,10 @@ from odoo.exceptions import UserError
 class Picking(models.Model):
     _inherit = "stock.picking"
 
+
+    # name_lbx = fields.Char(string="Name Lbx", related='picking_id.name', store=True)
+    
+
     def button_update_valuation_layer_value(self):
         for picking in self:
             for move in picking.move_ids_without_package:
@@ -18,6 +22,7 @@ class StockMove(models.Model):
 
     valuation_layer_value = fields.Float("Total Cost")
     cost_per_unit = fields.Float("Cost Per Unit", compute='_compute_cost_per_unit', store=True)
+    reference_ne_ms = fields.Char(string="Partner Ref", related='picking_id.origin', store=True)
 
     @api.depends('valuation_layer_value', 'quantity')
     def _compute_cost_per_unit(self):
@@ -28,18 +33,17 @@ class StockMove(models.Model):
                 record.cost_per_unit = 0.0
 
 
-class StockValuationLayer(models.Model):
-    """Stock Valuation Layer"""
+# class StockValuationLayer(models.Model):
+#     """Stock Valuation Layer"""
 
-    _inherit = 'stock.valuation.layer'
+#     _inherit = 'stock.valuation.layer'
 
-    unit_cost = fields.Float('Unit Value', digits='Product Price', readonly=True, group_operator=None, compute='_get_unit_cost')
+#     unit_cost = fields.Float('Unit Value', digits='Product Price', readonly=True, group_operator=None, compute='_get_unit_cost')
 
-
-    @api.depends('product_id')
-    def _get_unit_cost(self):
-        for record in self:
-            if record.product_id:
-                record.unit_cost = record.product_id.product_tmpl_id.new_cost
-            else:
-                record.unit_cost = 0.0
+#     @api.depends('product_id')
+#     def _get_unit_cost(self):
+#         for record in self:
+#             if record.product_id:
+#                 record.unit_cost = record.product_id.product_tmpl_id.new_cost
+#             else:
+#                 record.unit_cost = 0.0

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="action_report_sales_details" model="ir.actions.act_window">
+        <field name="name">Sales Details</field>
+        <field name="res_model">sale.details.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_report_sales_details" name="Sales Details" action="action_report_sales_details" parent="account.menu_finance_receivables"/>
+
+</odoo>

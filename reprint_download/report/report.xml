@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pos_receipt_re_print">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="order">
+                <div class="page" style="font-family:Courier New; color: #333; width:270px; position: fixed; top: 0; left: 0; margin: 0; margin-top: 0;">
+                    <div class="oe_structure"/>
+                    <div class="company-logo" style="text-align: center;">
+                        <img src="src/user/reprint_download/static/src/img/logo.png" alt="Logo" style="max-height: 100px;"/>
+                    </div>
+                    <div>
+                        <div style="font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px;">
+                                TEA TANG (PVT.) LTD
+                        </div>
+                        <div style="font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px;">
+                                O.G.F.
+                        </div>
+                        <div style="font-weight: bold; font-size: 10px; text-align:center; margin-top: 10px;">
+                                15 Level 2, One Galle Face Mall
+                        </div>
+                        <div style="font-weight: bold; font-size: 10px; text-align:center; margin-top: 10px;">
+                                0117 011 241
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="cashier_and_date">
+                        <div style="float: left; text-align: left; width: 50%;">
+                            <div>CASHIER: <span t-field="order.user_id"/>
+                            </div>
+                            <div>INV.NO:
+                                <span>
+                                    <t t-set="ref" t-value="order.pos_reference"/>
+                                    <t t-if="ref.startswith('Order ')">
+                                        <span t-esc="ref.split(' ')[-1]"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="ref"/>
+                                    </t>
+                                </span>
+                            </div>
+                        </div>
+                        <div style="float: right; text-align: right; width: 50%;">
+                            <div>DATE: <span t-esc="order.date_order.strftime('%d-%m-%y')"/>
+                            </div>
+                            <div>TIME: <span t-esc="order.date_order.strftime('%H:%M:%S')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <style>
+                        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap');
+
+                        /* Rest of your styles */
+                        .cashier_and_date {
+                            font-size: 11px;
+                        }
+                        .receipt-orderlines {
+                            border-collapse: collapse;
+                            width: 100% !important;
+                            font-family: Courier New !important;
+                            table-layout: fixed !important;
+                            border-left: 1px solid white;
+                            border-right: 1px solid white;
+                            text-align: center !important;
+                        }
+                        .receipt-orderlines td {
+                            text-align: center !important;
+                            padding: 5px !important;
+                            font-size: 11px;
+                        }
+                        .receipt-orderlines th {
+                            border-top: 1px solid black;
+                            border-bottom: 1px solid black;
+                            text-align: left !important;
+                            padding: 5px !important;
+                            font-size: 11px;
+                        }
+                        .payment {
+                            border-top: 1px solid black;
+                        }
+                        .total {
+                            border-bottom: 1px solid black;
+                            margin-top: 20px;
+                            padding-top: 5px;
+                        }
+                        .page {
+                            font-family: Courier Prime
+                        }
+                        </style>
+                        <table class='receipt-orderlines'>
+                            <colgroup>
+                                <col width='45%' />
+                                <col width='20%' />
+                                <col width='15%' />
+                                <col width='20%' />
+                            </colgroup>
+                            <tr>
+                                <th style="text-align:left;">PRODUCT</th>
+                                <th>PRICE</th>
+                                <th>QTY</th>
+                                <th>AMOUNT</th>
+                            </tr>
+                            <!-- Loop through order lines -->
+                            <t t-set="total_items" t-value="0"/>
+                            <t t-set="total_quantity" t-value="0"/>
+                            <t t-foreach="order.lines" t-as="line">
+                                <!-- Increment total items and total quantity -->
+                                <t t-set="total_items" t-value="total_items + 1"/>
+                                <t t-set="total_quantity" t-value="total_quantity + line.qty"/>
+                                <tr>
+                                    <td>
+                                        <div style="padding-top: 2px; text-align:left;">
+                                            <span t-field="line.product_id.display_name"/>
+                                        </div>
+                                        <div t-if="line.discount &gt; 0" style="font-size: 11px; font-weight: 400; color: #808080;">Discount: <span t-field="line.discount"/>
+%</div>
+                                    </td>
+                                    <td>
+                                        <div style="padding-top: 2px; text-align:left;">
+                                            <span t-field="line.price_unit"/>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="padding-top: 2px; text-align:center;">
+                                            <span t-field="line.qty"/>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="padding-top: 2px; text-align:left;">
+                                            <span t-field="line.price_subtotal_incl"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                        <!-- Total -->
+                        <div class="total">
+                            <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                                <div style="float: left;">TOTAL ITEMS: <span t-esc="total_items"/>
+                                </div>
+                                <div style="float: right;">TOTAL QTY: <span t-esc="total_quantity"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                                <div style="float: left;">NET TOTAL</div>
+                                <div style="float: right;">
+                                    <span t-esc="sum(order.lines.mapped('price_subtotal_incl'))"/>
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                    <!-- Payment -->
+                    <div class='payment'>
+                        <div style="margin-top: 20px;">
+                            <div style="width: 50%; float: left;">
+                                <t t-set="has_payment" t-value="False"/>
+                                <t t-foreach="order.payment_ids" t-as="payment">
+                                    <t t-if="payment.amount &gt;= 0">
+                                        <t t-set="has_payment" t-value="True"/>
+                                        <div>
+                                            <span t-esc="payment.payment_method_id.name"/>
+                                        </div>
+                                    </t>
+                                </t>
+                            </div>
+                            <div style="width: 50%; float: right; text-align: right;">
+                                <t t-if="has_payment">
+                                    <t t-foreach="order.payment_ids" t-as="payment">
+                                        <t t-if="payment.amount &gt;= 0">
+                                            <div>
+                                                <span t-esc="payment.amount"/>
+                                            </div>
+                                        </t>
+                                    </t>
+                                </t>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                    <!-- Change -->
+                    <div class='change'>
+                        <div>
+                            <div style="float: left;">
+                                <div>CHANGE</div>
+                            </div>
+                            <div style="float: right;">
+                                <div>
+                                    <span t-field="order.amount_return"/>
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="signature-container" style="clear: both; margin-top: 20px; font-family:Courier New;">
+                            <div class="signature-customer" style="float: left; width: 50%; text-align: center; font-family:Courier New;">
+                            _____________
+                                <br/>
+                                <span style="display: block; text-align: center; font-size: 11px; font-family:Courier New;">CUSTOMER</span>
+                            </div>
+                            <div class="signature-cashier" style="float: right; width: 50%; text-align: center; font-family:Courier New;">
+                            _____________
+                                <br/>
+                                <span style="display: block; text-align: center; font-size: 11px; font-family:Courier New;">CASHIER</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <!-- Footer -->
+                    <div style="text-align: center; font-size:23px; font-weight:600; margin-top:20px; font-family:Courier New;">
+                        <div>*                            <span>
+                                <t t-set="ref" t-value="order.pos_reference"/>
+                                <t t-if="ref.startswith('Order ')">
+                                    <span t-esc="ref.split(' ')[-1]"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="ref"/>
+                                </t>
+                            </span>*
+                        </div>
+                    </div>
+
+                    <br/>
+                    <div style="font-size: 12px; text-align: center; font-family:Courier New;">
+                            Thank You<br/>
+                            Please Visit Again
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

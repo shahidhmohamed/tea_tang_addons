@@ -13,7 +13,7 @@
         <field name="numbercall">-1</field>
     </record> -->
 
-    <record id="ir_cron_fetch_data_from_shahhidh" model="ir.cron">
+    <!-- <record id="ir_cron_fetch_data_from_shahhidh" model="ir.cron">
         <field name="name">Test shahidh</field>
         <field name="model_id" ref="model_sale_order_line"/>
         <field name="state">code</field>
@@ -21,9 +21,9 @@
         <field name="interval_number">10</field>
         <field name="interval_type">minutes</field>
         <field name="numbercall">-1</field>
-    </record>
+    </record> -->
 
-    <record id="ir_cron_fetch_data_from_sales_order_after_fet" model="ir.cron">
+    <!-- <record id="ir_cron_fetch_data_from_sales_order_after_fet" model="ir.cron">
         <field name="name">lbx-test-24-1</field>
         <field name="model_id" ref="model_sale_order"/>
         <field name="state">code</field>
@@ -31,7 +31,7 @@
         <field name="interval_number">10</field>
         <field name="interval_type">minutes</field>
         <field name="numbercall">-1</field>
-    </record>
+    </record> -->
 
 
 </odoo>

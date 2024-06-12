@@ -12,6 +12,10 @@
                 <field name="cost_per_unit"/>
             </xpath>
 
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity']" position="after">
+                <field name="reference_ne_ms"/>
+            </xpath>
+
             <xpath expr="//button[@name='do_print_picking']" position="after">
                 <button name="button_update_valuation_layer_value" string="Get Cost" groups="stock.group_stock_user" type="object"/>
             </xpath>
