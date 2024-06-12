@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="sale_details_report">
+            <div class="oe_structure"></div>
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <h3>Sales Details</h3>
+                        <t t-if="date_start and date_stop">
+                            <span t-out="date_start" t-options="{'widget': 'datetime'}">2-03-2000 9:00 AM</span> -                            
+                            <span t-out="date_stop" t-options="{'widget': 'datetime'}">Demo 3-03-2000 5:00 PM</span>
+                        </t>
+                        <div class="oe_structure"></div>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-start">Name</th>
+                                    <th class="text-start">Payment Dates</th>
+                                    <!-- <th class="text-start">Customer names</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="move_names" t-as="move_name">
+                                    <tr>
+                                        <td style="background-color: #dadada;">
+                                            <div style="padding-top: 2px; text-align:left;">
+                                                <span t-esc="move_name"/>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div style="padding-top: 2px; text-align:left;">
+                                                <span t-esc="payment_dates"/>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div style="padding-top: 2px; text-align:left;">
+                                                <!-- <span t-esc="customer_names"/> -->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <div class="oe_structure"></div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
