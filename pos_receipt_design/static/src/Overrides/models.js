@@ -82,7 +82,7 @@ patch(OrderReceipt.prototype, {
                 var pos_order = this.pos.pos_order
 
 
-                console.log("this pos data", this.pos)
+                // console.log("this pos data", this.pos)
 
 
 
@@ -121,7 +121,8 @@ patch(OrderReceipt.prototype, {
                 });
 
                 const cashier_name = order.cashier.name;
-                console.log("Cashier Name", cashier_name)
+                const cardNumber = order.card_number;
+                // console.log("Cashier Name", cashier_name)
 
 
                 var data = {
@@ -134,6 +135,7 @@ patch(OrderReceipt.prototype, {
                     totalItems: orderLinesData.length,
                     totalQuantity: totalQuantity,
                     pos_order: pos_order,
+                    cardNumber: cardNumber,
                     receipt_date: orderDateFormatted,
                     receipt_time: orderTimeFormatted
                 };

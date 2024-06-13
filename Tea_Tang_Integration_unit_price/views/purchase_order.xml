@@ -2,19 +2,116 @@
 
 
 <odoo>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7058ea7cfbf89ab97209f65e017e433d04d557a1
     <record id="stock_picking_form_inherit" model="ir.ui.view">
         <field name="name">stock.picking.form.inherit</field>
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
+<<<<<<< HEAD
+=======
         <field name="arch" type="xml">
             <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom']" position="after">
                 <field name="valuation_layer_value"/>
                 <field name="cost_per_unit"/>
             </xpath>
 
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity']" position="after">
+                <field name="reference_ne_ms"/>
+            </xpath>
+
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">
+                <field name="form_po"/>
+            </xpath>
+
+            <xpath expr="//button[@name='do_print_picking']" position="after">
+                <button name="button_update_valuation_layer_value" string="Get Cost" groups="stock.group_stock_user" type="object"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- <record id="purchase_order_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+>>>>>>> 7058ea7cfbf89ab97209f65e017e433d04d557a1
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom']" position="after">
+                <field name="valuation_layer_value"/>
+                <field name="cost_per_unit"/>
+            </xpath>
+
+<<<<<<< HEAD
             <xpath expr="//button[@name='do_print_picking']" position="after">
                 <button name="button_update_valuation_layer_value" invisible="state in ('draft', 'confirmed','cancel')" string="Get Cost" groups="stock.group_stock_user" type="object"/>
             </xpath>
         </field>
     </record>
+=======
+    <record id="purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="after">
+                <!-- <field name="name_lbx"/> -->
+                <field name="partner_ref"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- <record id="sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                <field name="client_order_ref"/>
+                <field name="name_lbx"/>
+            </xpath>
+        </field>
+    </record> -->
+
+    <record id="purchase_order_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_rfq_send']" position="after">
+                <button name="unit_confirm" type="object" class="btn-primary" string="Get Unit Price"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_line_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.line.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                <button name="compute_price_unit_new" type="object" class="btn-primary" string="Get Unit Price"/>
+            </xpath> -->
+            <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="after">
+                <button name="compute_price_unit_new_test" type="object" class="btn-primary" string="Get Unit Price"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+    <!-- <record id="sales_order_inherit" model="ir.ui.view">
+        <field name="name">sales.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <button name="action_confirm" type="object" class="btn-primary" string="Set Unit Price"/>
+            </xpath>
+        </field>
+    </record> -->
+
+>>>>>>> 7058ea7cfbf89ab97209f65e017e433d04d557a1
 </odoo>
