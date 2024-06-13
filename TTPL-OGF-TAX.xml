@@ -1,0 +1,172 @@
+<div class="pos-receipt" style="font-family:Courier New;">
+    <div style="margin: 0 auto; text-align: center;">
+        <img src="/pos_receipt_design/static/src/img/logo.png" alt="Company Logo" style="max-width: 80%; height: 40%; width: 60%;"/>
+    </div>
+    <br/>
+    <div>
+        <div style="font-weight: 900; font-size: 20px; font-family: Courier New; text-align: center; margin-bottom: 1px;">
+            <span style="margin: 0; padding: 2;">TEA TANG (PVT.) LTD</span>
+        </div>
+        <div style="font-weight: bold; font-size: 20px; text-align: center; margin: 0; padding: 0;">
+            <span style="margin: 0; padding: 0;">O.G.F.</span>
+        </div>
+    </div>
+    <div style="font-weight: bold; font-size: 12px; text-align:center; margin: 0;">
+        <span>15 Level 2, One Galle Face Mall</span>
+    </div>
+    <div style="font-weight: bold; font-size: 12px; text-align:center; margin: 0;">
+        <span>0117 011 241</span>
+    </div>
+    <br/>
+    <div style="display: flex; justify-content: space-between; font-size: 9px;">
+        <div style="flex: 1; font-weight: bold; text-align: left; align-item:left; padding-right:10px;">
+            <t t-if="receipt.cashier">
+                <div style="margin: 0; padding: 0;">
+                    <div>CASHIER:<t t-esc="receipt.cashier" />
+                    </div>
+                    <div style="white-space: nowrap;">INV. NO:<t t-esc="receipt.name.replace('Order', '').trim()" />
+                    </div>
+                </div>
+            </t>
+        </div>
+        <div style="flex: 1; font-weight: bold; text-align: right; align-items: flex-end;">
+
+            <div style="margin: 0; padding: 0;">
+                <div style="text-align: right;">DATE: <span t-esc="receipt_date" />
+                </div>
+                <div style="text-align: right;">TIME: <span t-esc="receipt_time" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div style="display: flex; justify-content: space-between; font-weight: bold; text-align: center; font-size: 12px; border-bottom:3px solid black;border-top:3px solid black;  margin-bottom: 5px;">
+        <div style="padding-right: 3px;">PRODUCT</div>
+        <div style="flex: 2; padding-right:5px;">PRICE</div>
+        <div style="flex: 1; padding-right: 10px;">QTY</div>
+        <div style="flex: 2;">AMOUNT</div>
+    </div>
+    <div>
+        <t t-set="lineNumber" t-value="0" />
+        <t t-foreach="receipt.orderlines" t-as="line" t-key="line.id">
+            <t t-set="lineNumber" t-value="lineNumber + 1" />
+            <div style="display: flex; justify-content: flex-start; font-size: 10px; padding-bottom: 2px; font-weight: bold;">
+                <div style="padding-right: 5px; font-weight: bold;">
+                    <span t-esc="lineNumber" />
+.</div>
+                <div style="flex: 10; padding-right: 10px; font-weight: bold;">
+                    <span t-esc="line.productName" />
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-start; font-size: 10px; padding-bottom: 5px; padding-left: 20px; font-weight: bold;">
+                <div style="flex: 2; text-align: right; font-weight: bold;">
+                    <span t-esc="line.unitPrice" />
+                </div>
+                <div style="flex: 1; text-align: right; font-weight: bold;">
+                    <t t-set="roundedQty" t-value="Math.round(line.qty)" />
+                    <span t-esc="roundedQty" />
+                </div>
+                <div style="flex: 2; text-align: right; font-weight: bold;">
+                    <span t-esc="line.price" />
+                </div>
+            </div>
+        </t>
+    </div>
+    <br/>
+    <div>
+        <!-- Subtotal -->
+        <t t-set='taxincluded' t-value='Math.abs(receipt.total_without_tax - receipt.amount_total) &lt;= 0.000001' />
+        <t t-if='!taxincluded'>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: bold;">
+                <div>TOTAL ITEMS: <t t-esc="totalItems"/>
+                </div>
+                <div>TOTAL QTY: <t t-esc="totalQuantity" />
+                </div>
+            </div>
+            <br/>
+            <div style="font-weight: 600; font-size: 12px; border-bottom:3px solid black;border-right: none;">
+                <span>NET TOTAL : </span>
+                <span t-esc='widget.utils.formatCurrency(receipt.amount_total)' class="pos-receipt-right-align"/>
+            </div>
+            <br/>
+            <t t-foreach='receipt.tax_details' t-as='tax' t-key='tax.name'>
+                <!--<div style="font-weight: 700;text-align: right;">-->
+                <!--    <t t-esc='tax.name' />-->
+                <!--    <span t-esc='widget.utils.formatCurrency(tax.amount, false)' class="pos-receipt-right-align"/>-->
+                <!--</div>-->
+                <div class="receipt-change" style="font-size: 11px; font-weight: bold; font-family:Courier New;">
+                    <span style="float: left;">TOTAL VAT</span>
+                    <span t-esc='widget.utils.formatCurrency(tax.amount, false)' class="pos-receipt-right-align"/>
+                </div>
+            </t>
+            <br/>
+            <br/>
+            <t t-foreach='paymentlines' t-as='line' t-key="line.cid">
+                <t t-if="line.amount > 0">
+                    <div style="font-size: 11px; border-top: none; font-weight: bold; overflow: hidden;">
+                        <span style="float: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                            <t t-esc='line.name' />
+                        </span>
+                        <span style="float: right;">
+                            <t t-esc='widget.utils.formatCurrency(line.amount, false)' class="pos-receipt-right-align"/>
+                        </span>
+                    </div>
+                </t>
+            </t>
+            <div class="receipt-change" style="font-size: 11px; font-weight: bold; font-family:Courier New;">
+                <span style="float: left;">CHANGE</span>
+                <span t-esc='widget.utils.formatCurrency(receipt.change)' class="pos-receipt-right-align"/>
+            </div>
+            <br/>
+            <t t-if="cardNumber">
+                <div class="receipt-change" style="font-size: 11px; font-weight: bold; font-family:Courier New;">
+                    <span style="float: left;">CARD NUMBER</span>
+                    <span t-esc='cardNumber' class="pos-receipt-right-align"/>
+                </div>
+            </t>
+            <br/>
+            <br/>
+            <t t-if="order.partner">
+                <div class="receipt-change" style="font-size: 11px; font-weight: bold; font-family:Courier New;">
+                    <span style="float: left;">CUSTOMER NAME :</span>
+                    <span t-esc='order.partner.name' class="pos-receipt-right-align"/>
+                </div>
+            </t>
+            <br/>
+            <t t-if="order.partner">
+                <div class="receipt-change" style="font-size: 11px; font-weight: bold; font-family:Courier New;">
+                    <span style="float: left;">VAT REG NO :</span>
+                    <span t-esc='order.partner.vat' class="pos-receipt-right-align"/>
+                </div>
+            </t>
+            <br/>
+            <div class="signature-container" style="clear: both; margin-top: 20px; font-family:Courier New; font-weight: bold">
+                <div class="signature-customer" style="float: left;  text-align: center; font-family:Courier New;">
+                        _____________
+                    <br/>
+                    <span style="display: block; text-align: center; font-size: 11px; font-family:Courier New;">CUSTOMER</span>
+                </div>
+                <div class="signature-cashier" style="float: right;  text-align: center; font-family:Courier New;">
+                        _____________
+                    <br/>
+                    <span style="display: block; text-align: center; font-size: 11px; font-family:Courier New;">CASHIER</span>
+                </div>
+            </div>
+        </t>
+    </div>
+
+
+    <div class='before-footer' />
+    <br/>
+    <br/>
+    <!-- Footer -->
+    <div style="text-align: center; font-size:23px; font-weight:600; margin-top:20px; font-family:Courier New; font-weight: bold">
+        <div>*            <t t-esc="receipt.name.replace('Order', '').trim()" />
+*</div>
+    </div>
+    <br/>
+    <div style="font-size: 12px; text-align: center; font-family:Courier New;">
+            Thank You<br/>
+Please Visit Again
+    </div>
+</div>
