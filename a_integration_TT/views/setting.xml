@@ -4,53 +4,39 @@
         <field name="name">DATE DETAILS</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">date</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">form</field>
+        <field name="res_id">1</field>
     </record>
 
-    <!-- <record id="date_kanban" model="ir.ui.view">
-        <field name="name">DATE DETAILS</field>
-        <field name="model">date</field>
-        <field name="arch" type="xml">
-            <kanban>
-                <templates>
-                    <t t-name="kanban-box">
-                        <field name="date" optional="show"/>
-                    </t>
-                </templates>
-            </kanban>
-        </field>
-    </record> -->
-
     <record id="date_form" model="ir.ui.view">
-        <field name="name">DATE DETAILS</field>
+        <field name="name">date.form</field>
         <field name="model">date</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <group>
-                        <group>
-                            <field name="date" optional="show" />
-                        </group>
-                    </group>
+                    <notebook>
+                        <page string="Date Information">
+                            <group>
+                                <field name="date" optional="show" />
+                                <field name="e_date" optional="show" />
+                            </group>
+                        </page>
+                        <page string="Credential">
+                            <group>
+                                <field name="customer_id" optional="show" />
+                                <field name="secret_client" password="True" optional="show" />
+                                <field name="token_url" optional="show" />
+                                <field name="ogf_url" optional="show" />
+                                <field name="app_code" optional="show" />
+                                <field name="property_code" optional="show" />
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
 
-
-    <record id="date_tree" model="ir.ui.view">
-        <field name="name">DATE DETAILS</field>
-        <field name="model">date</field>
-        <field name="arch" type="xml">
-            <tree editable="bottom" create="0">
-                <field name="date" optional="show" />
-            </tree>
-        </field>
-    </record>
-
-    <!-- <menuitem id="tea_tang_2" name="Tea_tang" sequence="10" /> -->
     <menuitem id="settings" name="Settings" parent="tea_tang" sequence="30" />
-    <menuitem id="date_details" name="Date Settings" parent="settings" action="action_tea_date" sequence="10" />
-
-
+    <menuitem id="date_details" name="Date Range" parent="settings" action="action_tea_date" sequence="10" />
 </odoo>

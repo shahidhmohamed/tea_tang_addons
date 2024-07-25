@@ -16,6 +16,15 @@ patch(PaymentScreen.prototype, {
     },
 
     async _finalizeValidation() {
+        var self = this;
+        var order = this.currentOrder;
+        var uid = order.uid;
+        const tktNumber = order.uid;
+        if (this.currentOrder) {
+            this.currentOrder.set_tkt_number(tktNumber);
+            // console.log("Current Order with Card Number:", this.currentOrder);
+        }
+        console.log("tkt_number payment", tktNumber)
         const cardNumber = document.getElementById('card_number').value;
         // console.log('Card Number:', cardNumber);
 
@@ -23,6 +32,7 @@ patch(PaymentScreen.prototype, {
             this.currentOrder.set_card_number(cardNumber);
             // console.log("Current Order with Card Number:", this.currentOrder);
         }
+
 
         super._finalizeValidation()
     }
@@ -32,6 +42,7 @@ patch(Order.prototype, {
     setup(_defaultObj, options) {
         super.setup(...arguments);
         this.card_number = this.card_number || "";
+        this.tkt_number = this.tkt_number || "";
 
     },
 
@@ -39,18 +50,29 @@ patch(Order.prototype, {
         this.card_number = cardNumber;
     },
 
+    set_tkt_number(tktNumber) {
+        this.tkt_number = tktNumber;
+    },
+
     get_card_number() {
         return this.card_number;
     },
+
+    get_tkt_number() {
+        return this.tkt_number;
+    },
+
     export_as_JSON() {
         const json = super.export_as_JSON(...arguments);
         json.card_number = this.card_number;  // Include the card number in the exported JSON
+        json.tkt_number = this.tkt_number;
         return json;
     },
 
     init_from_JSON(json) {
         super.init_from_JSON(...arguments);
         this.card_number = json.card_number || "";  // Initialize the card number from the JSON
+        this.tkt_number = json.tkt_number || "";
     },
 });
 

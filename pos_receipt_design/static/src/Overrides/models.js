@@ -122,7 +122,8 @@ patch(OrderReceipt.prototype, {
 
                 const cashier_name = order.cashier.name;
                 const cardNumber = order.card_number;
-                // console.log("Cashier Name", cashier_name)
+                const tktNumber = order.tkt_number;
+                console.log("tktNumber", tktNumber)
 
 
                 var data = {
@@ -136,6 +137,7 @@ patch(OrderReceipt.prototype, {
                     totalQuantity: totalQuantity,
                     pos_order: pos_order,
                     cardNumber: cardNumber,
+                    tktNumber: tktNumber,
                     receipt_date: orderDateFormatted,
                     receipt_time: orderTimeFormatted
                 };

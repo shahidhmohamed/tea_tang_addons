@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_button.PaymentScreenButtons" t-inherit="point_of_sale.PaymentScreenButtons" t-inherit-mode="extension">
+        <xpath expr="//div[contains(@class, 'payment-buttons')]" position="inside">
+            <div>
+                <!-- Adding a new field below the existing buttons -->
+                <div class="button btn btn-light py-3 text-start rounded-0 border-bottom">
+                    <label for="card_number">Card Number</label>
+                    <input type="text" id="card_number" class="form-control"/>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+    <!-- <t t-name="payment_field.TicketScreen" t-inherit="point_of_sale.TicketScreen" t-inherit-mode="extension">
+        <xpath expr="//div[@class='header-row d-flex text-bg-700 fw-bolder']//div[@class='col end p-2']" position="after">
+            <div class="col end p-2">SeqNumber</div>
+        </xpath>
+        <xpath expr="//div[@class='order-row']//div[@class='col end p-2'][last()]" position="after">
+            <div class="col end p-2">
+                <div>
+                    <t t-esc="order.seq_number"></t>
+                </div>
+            </div>
+        </xpath>
+    </t> -->
+</templates>

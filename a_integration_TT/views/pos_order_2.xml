@@ -42,11 +42,11 @@
                 <field name="session_id" optional="show" />
                 <field name="ReceiptNo" optional="show" />
                 <field name="ReceiptDate" optional="show" />
-                <field name="cardtype" optional="show" />
-                <field name="paymentDate" optional="show" />
+                <!-- <field name="cardtype" optional="show" /> -->
+                <!-- <field name="paymentDate" optional="show" /> -->
                 <field name="PaymentAmt" optional="show" />
                 <field name="PaymentMethods" optional="show" />
-                <field name="SalesType" optional="show" />
+                <!-- <field name="SalesType" optional="show" /> -->
                 <field name="company" optional="show" />
             </tree>
         </field>

@@ -8,6 +8,9 @@
             <xpath expr="//field[@name='session_id']" position="after">
                 <field name="card_number"/>
             </xpath>
+            <xpath expr="//field[@name='card_number']" position="after">
+                <field name="tkt_number"/>
+            </xpath>
         </field>
     </record>
 </odoo>

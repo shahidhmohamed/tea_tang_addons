@@ -1,5 +1,5 @@
 {
-    'name': 'Tea Tang Unit Amount',
+    'name': 'Tea Tang Unit Amount ',
     'author':'M.SHAHIDH',
     'sequence': 5,
     'depends':[
@@ -14,6 +14,7 @@
     ],
     'data': [
         'views/purchase_order.xml',
+        # 'views/purchase_order_template.xml',
         'security/ir.model.access.csv'
         
     ],

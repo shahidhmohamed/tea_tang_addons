@@ -8,12 +8,14 @@ class PosOrder(models.Model):
     _inherit = 'pos.order'
 
     card_number = fields.Char(string="Card Number(s)" , readonly=True)
+    tkt_number = fields.Char(string="Tkt Number" , readonly=True)
 
     @api.model
     def _order_fields(self, ui_order):
         process_line = partial(self.env['pos.order.line']._order_line_fields, session_id=ui_order['pos_session_id'])
         return {
             'card_number': ui_order['card_number'],
+            'tkt_number': ui_order['tkt_number'],
             'user_id':      ui_order['user_id'] or False,
             'session_id':   ui_order['pos_session_id'],
             'lines':        [process_line(l) for l in ui_order['lines']] if ui_order['lines'] else False,
@@ -45,6 +47,7 @@ class PosOrder(models.Model):
             'lines': [[0, 0, line] for line in order.lines.export_for_ui()],
             'statement_ids': [[0, 0, payment] for payment in order.payment_ids.export_for_ui()],
             'card_number': order.card_number,
+            'tkt_number': order.tkt_number,
             'name': order.pos_reference,
             'uid': order.pos_reference,
             'amount_paid': order.amount_paid,

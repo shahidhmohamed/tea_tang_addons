@@ -11,7 +11,8 @@
         'stock_account',
         'product',
         'purchase',
-        'stock_account'
+        'stock_account',
+        'web'
     ],
     'data': [
         'views/purchase_order.xml',

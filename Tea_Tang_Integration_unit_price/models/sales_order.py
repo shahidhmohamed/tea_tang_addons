@@ -3,14 +3,13 @@ from odoo.exceptions import UserError
 
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
-    
-<<<<<<< HEAD
+
     partner_ref = fields.Char(string="Partner Ref", related='order_id.partner_ref', store=True)
-=======
+
 
 #     new_field = fields.Integer(string="My Field", store=True)
 #     name_lbx = fields.Char(string="Name Lbx", related='order_id.name', store=True)
-    partner_ref = fields.Char(string="Partner Ref", related='order_id.partner_ref', store=True)
+    # partner_ref = fields.Char(string="Partner Ref", related='order_id.partner_ref', store=True)
 
 #     new_field_connect = fields.Many2one('sale.order.line', string="Related Sale Order Line")
 
@@ -31,7 +30,7 @@ class PurchaseOrderLine(models.Model):
 #                 record.price_unit = valuation_layer.price_unit
 #             else:
 #                 record.price_unit = 0.00
->>>>>>> 7058ea7cfbf89ab97209f65e017e433d04d557a1
+
 
 
 #     # @api.depends('partner_ref', 'new_field_connect.price_unit')
@@ -192,9 +191,6 @@ class StockMove(models.Model):
                 record.cost_per_unit = 0.0
 
 
-<<<<<<< HEAD
-
-=======
     # sale_order_id = fields.Many2one('sale.order', string='Sale Order')
 
     # def unit_confirm(self):
@@ -278,14 +274,13 @@ class StockMove(models.Model):
 
                 # If you need to raise an error for testing purposes, uncomment the next line
                 # raise UserError(f"Purchase Order Line {purchase_order_line.id}: Unit price set to {purchase_order_line.price_unit}")
->>>>>>> 7058ea7cfbf89ab97209f65e017e433d04d557a1
+
 
 
 # class SaleOrderLine(models.Model):
 #     _inherit = "sale.order.line"
 
-<<<<<<< HEAD
-=======
+
     # new_field = fields.Many2one('purchase.order.line', string="Related Purchase Order Line")
 
     # price_unit = fields.Float(
@@ -304,4 +299,3 @@ class StockMove(models.Model):
 
     # client_order_ref = fields.Char(string="Client Order Ref", related='order_id.client_order_ref', store=True)
     # name_lbx = fields.Char(string="Name Lbx", related='order_id.name', store=True)
->>>>>>> 7058ea7cfbf89ab97209f65e017e433d04d557a1
