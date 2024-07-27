@@ -9,6 +9,12 @@ class PurchaseOrderLine(models.Model):
 
     new_total_amount_taxed = fields.Monetary(string='Line Amount', compute='_compute_new_total_amount')
     line_amount_tax_excl = fields.Monetary(string='Line Amount Excl', compute='_compute_new_total_amount')
+    vendor_group = fields.Selection(
+        related='order_id.Vendor_group',
+        string='Vendor Group',
+        readonly=True,
+        store=True
+    )
 
     @api.depends('product_qty', 'price_unit', 'taxes_id')
     def _compute_new_total_amount(self):
@@ -54,7 +60,14 @@ class PurchaseOrderLine(models.Model):
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
+    # Please note this if internal server appears please comment this realated parameter "related='partner_id.x_studio_vendor_group'b"
     tax_totals_new = fields.Monetary(compute='_compute_tax_totals_new', string='Total Line Amount Including Tax', store=True)
+    Vendor_group = fields.Selection(
+        string='Vendor Group',
+        related='partner_id.x_studio_vendor_group',
+        readonly=True,
+        store=True
+    )
 
     @api.depends('order_line.new_total_amount_taxed')
     def _compute_tax_totals_new(self):

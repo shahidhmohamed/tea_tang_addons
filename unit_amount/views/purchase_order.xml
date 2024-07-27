@@ -10,8 +10,25 @@
                 <field name="price_unit" optional="show"/>
             </xpath>
 
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="Vendor_group" widget="radio" options="{'horizontal': true}" readonly="False"/>
+            </xpath>
+
+            <xpath expr="//field[@name='tax_country_id']" position="after">
+                <field name="Vendor_group" widget="radio" options="{'horizontal': true}" readonly="False" invisible="1"/>
+            </xpath>
+
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
-                <field name="unit_amount" optional="show"/>
+                <field name="unit_amount" optional="show" readonly="vendor_group == 'Internal'"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='unit_amount']" position="after">
+                <field name="vendor_group" optional="show" column_invisible="True"/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='tax_totals']" position="replace">
+                <field name="tax_totals" widget="account-tax-totals-field" nolabel="1" colspan="2" readonly="1" invisible="Vendor_group == 'Internal'"/>
             </xpath>
 
             <xpath expr="//field[@name='order_line']/tree/field[@name='unit_amount']" position="after">
@@ -22,12 +39,9 @@
                 <field name="price_subtotal" optional="show" string="Tax excl."/>
             </xpath>
 
-            <xpath expr="//group[@class='oe_subtotal_footer']" position="inside">
-                <group>
-                    <field name="tax_totals_new" nolabel="1" colspan="2" readonly="1"/>
-                </group>
+            <xpath expr="//field[@name='tax_totals']" position="after">
+                <field name="tax_totals_new" nolabel="1" colspan="2" readonly="1" style="font-size: 15px; font-weight:bolder; margin-top:0px;"/>
             </xpath>
-
         </field>
     </record>
 </odoo>
