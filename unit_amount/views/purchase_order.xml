@@ -11,7 +11,7 @@
             </xpath>
 
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="Vendor_group" widget="radio" options="{'horizontal': true}" readonly="False"/>
+                <field name="Vendor_group" widget="radio" options="{'horizontal': true}" readonly="True"/>
             </xpath>
 
             <xpath expr="//field[@name='tax_country_id']" position="after">
