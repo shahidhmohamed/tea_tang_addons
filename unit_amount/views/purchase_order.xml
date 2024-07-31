@@ -31,7 +31,7 @@
                 <field name="tax_totals" widget="account-tax-totals-field" nolabel="1" colspan="2" readonly="1" invisible="Vendor_group == 'Internal'"/>
             </xpath>
 
-            <xpath expr="//field[@name='order_line']/tree/field[@name='unit_amount']" position="after">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="after">
                 <field name="new_total_amount_taxed" optional="show" />
             </xpath>
 
@@ -42,6 +42,7 @@
             <xpath expr="//field[@name='tax_totals']" position="after">
                 <field name="tax_totals_new" nolabel="1" colspan="2" readonly="1" style="font-size: 15px; font-weight:bolder; margin-top:0px;"/>
             </xpath>
+
         </field>
     </record>
 </odoo>

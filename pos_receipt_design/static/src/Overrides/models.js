@@ -193,7 +193,9 @@ patch(PaymentScreen.prototype, {
         super.setup();
         this.pos = usePos();
         this.orm = useService("orm");
+        this.isValidationInProgress = false; // Flag to prevent multiple submissions
     },
+
     /**
      * For accessibility, pressing <space> should be like clicking the product.
      * <enter> is not considered because it conflicts with the barcode.
@@ -202,11 +204,18 @@ patch(PaymentScreen.prototype, {
      */
 
     async _finalizeValidation() {
+        if (this.isValidationInProgress) {
+            return; // Exit if a validation is already in progress
+        }
+
+        this.isValidationInProgress = true;
+
         var self = this;
         var order = this.currentOrder;
         var uid = order.uid;
         var newseq = ("T") + uid;
         // console.log("Hello Uid", newseq)
+
         try {
             const result = await this.orm.call(
                 'pos.order',
@@ -222,10 +231,10 @@ patch(PaymentScreen.prototype, {
             // console.log("Order name updated:", order.name);
         } catch (error) {
             // console.error("Error creating POS receipt sequence:", error);
+        } finally {
+            super._finalizeValidation();
+            this.isValidationInProgress = false;
         }
-
-        super._finalizeValidation()
-
     },
 });
 
