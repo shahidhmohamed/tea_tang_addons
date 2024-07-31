@@ -48,7 +48,8 @@ class StockMove(models.Model):
         string='On Hand QTY',
         related='product_id.qty_available',
         readonly=True,
-        store=True
+        store=True,
+        help="This Field Is to check the stck on the ware house that allows to mrp the product"
     )
 
     
