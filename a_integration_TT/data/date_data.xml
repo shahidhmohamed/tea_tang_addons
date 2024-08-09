@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="default_date_settings" model="date">
+        <field name="date">2024-01-01 00:00:00</field>
+        <field name="e_date">2999-12-31 00:00:00</field>
+        <field name="customer_id">CCB1-PS-23-00000063</field>
+        <field name="secret_client">5TH8d9LY+mseoDEEG8T+OQ==</field>
+        <field name="token_url">https://mims.imonitor.center/connect/token</field>
+        <field name="ogf_url">https://mims.imonitor.center/api/possale/importpossaleswithitems</field>
+        <field name="app_code">POS-02</field>
+        <field name="property_code">CCB1</field>
+        <field name="settings">Settings</field>
+    </record>
+</odoo>

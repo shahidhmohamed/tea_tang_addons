@@ -15,13 +15,13 @@
             <form>
                 <sheet>
                     <notebook>
-                        <page string="Date Information">
+                        <page string="Date">
                             <group>
                                 <field name="date" optional="show" />
-                                <field name="e_date" optional="show" />
+                                <!-- <field name="e_date" optional="show" /> -->
                             </group>
                         </page>
-                        <page string="Credential">
+                        <page string="Credentials">
                             <group>
                                 <field name="customer_id" optional="show" />
                                 <field name="secret_client" password="True" optional="show" />
@@ -29,6 +29,8 @@
                                 <field name="ogf_url" optional="show" />
                                 <field name="app_code" optional="show" />
                                 <field name="property_code" optional="show" />
+                                <!-- <field name="settings" optional="show" /> -->
+
                             </group>
                         </page>
                     </notebook>
@@ -37,6 +39,7 @@
         </field>
     </record>
 
-    <menuitem id="settings" name="Settings" parent="tea_tang" sequence="30" />
-    <menuitem id="date_details" name="Date Range" parent="settings" action="action_tea_date" sequence="10" />
+    <menuitem id="settings" name="Settings" parent="tea_tang" sequence="30" action="action_tea_date" />
+    <!-- <menuitem id="date_details" name="Date Range" parent="settings" 
+        sequence="10" /> -->
 </odoo>

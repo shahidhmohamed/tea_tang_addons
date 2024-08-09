@@ -4,7 +4,7 @@
         <field name="name">Order Details</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">tea.order.line</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree</field>
     </record>
 
     <record id="tea_tang_new_tes_form" model="ir.ui.view">
@@ -15,8 +15,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <button string="Get Pos" type="object" class="btn-primary"
-                                name="button_check" />
+                            <button string="Get Pos" type="object" class="btn-secondary" name="button_check" />
                         </group>
                     </group>
                     <!-- <notebook>
@@ -38,9 +37,10 @@
         <field name="name">Order Details</field>
         <field name="model">tea.order.line</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree editable="bottom" create="0">
                 <header>
                     <button string="Post" type="object" class="oe_highlight" name="button_check" />
+                    <button string="JSON" type="object" class="btn-secondary" name="button_json" />
                 </header>
                 <!-- <div class="oe_button_box" name="button_box">
                     <button name="button_check" class="oe_stat_button" icon="fa-bars" type="object">
@@ -49,10 +49,12 @@
                         </div>
                     </button>
                 </div> -->
+                <field name="state_1" optional="show" class="bold-text" />
                 <field name="status" optional="show" class="bold-text" />
                 <field name="batch" optional="show" class="bold-text" />
                 <field name="SentTime" optional="show" class="bold-text" />
                 <field name="session_id" optional="show" class="bold-text" />
+                <field name="ReceiptNo" optional="show" class="bold-text" />
                 <!-- <field name="custom_name" optional="show" /> -->
                 <field name="full_product_name" optional="show" class="bold-text" />
                 <field name="NoOfItems" optional="show" class="bold-text" />
@@ -67,7 +69,6 @@
                 <field name="TotalSalesAmtAfterTax" optional="show" class="bold-text" />
                 <field name="session_count" optional="show" class="bold-text" />
                 <field name="SalesType" optional="show" class="bold-text" />
-                <field name="ReceiptNo" optional="show" class="bold-text" />
                 <field name="ReceiptDate" optional="show" class="bold-text" />
                 <field name="ReceiptTime" optional="show" class="bold-text" />
                 <field name="company" optional="show" class="bold-text" />
@@ -85,8 +86,7 @@
         <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button type="object" name="button_check" class="oe_stat_button" icon="fa-dollar"
-    groups="base.group_no_one">
+                <button type="object" name="button_check" class="oe_stat_button" icon="fa-dollar" groups="base.group_no_one">
                     <div class="o_stat_info">
                         <span class="o_stat_text">Test</span>
                     </div>
@@ -96,7 +96,6 @@
     </record> -->
 
     <menuitem id="tea_tang" name="Tea Tang OGF" sequence="10" />
-    <menuitem id="pos_order" name="Order Details" parent="tea_tang" action="action_tea_tang_new_1"
-        sequence="10" />
+    <menuitem id="pos_order" name="Order Details" parent="tea_tang" action="action_tea_tang_new_1" sequence="10" />
 
 </odoo>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="action_tea_tang_new_2" model="ir.actions.act_window">
-        <field name="name">PAYMENT DETAILS</field>
+        <field name="name">Payment Details</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">tea.order.line.2</field>
         <field name="view_mode">tree</field>
@@ -34,7 +34,7 @@
 
 
     <record id="pos_order_2_tree" model="ir.ui.view">
-        <field name="name">PAYMENT DETAILS</field>
+        <field name="name">Payment Details</field>
         <field name="model">tea.order.line.2</field>
         <field name="arch" type="xml">
 
@@ -53,6 +53,7 @@
     </record>
 
     <!-- <menuitem id="tea_tang_2" name="Tea_tang" sequence="10" /> -->
-    <menuitem id="pos_order_2" name="Payment Details" parent="tea_tang" action="action_tea_tang_new_2" sequence="20" />
+    <menuitem id="pos_order_2" name="Payment Details" parent="tea_tang"
+        action="action_tea_tang_new_2" sequence="20" />
 
 </odoo>

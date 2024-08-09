@@ -2,5 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_tea_order_new,tea_order_new,model_tea_order_new,base.group_user,1,1,1,1
 access_tea_order_line,tea_order_line,model_tea_order_line,base.group_user,1,1,1,1
 access_tea_order_line_2,tea_order_line_2,model_tea_order_line_2,base.group_user,1,1,1,1
-access_tea_credentials,tea_credentials,model_tea_credentials,base.group_user,1,1,1,1
 access_date,date,model_date,base.group_user,1,1,1,1
