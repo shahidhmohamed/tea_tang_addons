@@ -7,7 +7,7 @@
   "author"               :  "Levant Business Experts (Pvt) Ltd",
   "license"              :  "Other proprietary",
   "website"              :  "https://levantbizexperts.com/",
-  "depends"              :  ['point_of_sale','base'],
+  "depends"              :  ['point_of_sale','base','pos_restaurant'],
   "data"                 :  [
                              'security/ir.model.access.csv',
                              'demo/demo.xml',
